@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>hello world</h1>
+      <h1 className="poppins">hello world</h1>
       <Button onClick={() => router.push("/about-us")}>About us</Button>
     </div>
   );
