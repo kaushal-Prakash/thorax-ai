@@ -1,6 +1,7 @@
 import e from 'express';
 import { changeName, changePassword, getUser, isAuthenticated, login, signout, signup } from '../controllers/authController.js';
 import { createOtp, verifyOtp } from '../controllers/otpController.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 const router = e.Router();
 
 router.post("/signup", signup);
