@@ -18,7 +18,7 @@ import { toast } from "sonner";
 
 export default function Login() {
   const router = useRouter();
-  const [user,setUser]=useState("");
+  const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ export default function Login() {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
-        {name : user, email, password },
+        { name: user, email, password },
         { withCredentials: true }
       );
 
@@ -42,8 +42,8 @@ export default function Login() {
     } catch (error) {
       console.log(error);
       toast("Something went wrong", { description: error.message });
-    }finally{
-        setLoading(false); 
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,7 +56,11 @@ export default function Login() {
           </CardTitle>
           <CardDescription>
             Already have an account?{" "}
-            <Button variant="link" className="p-0 h-auto font-normal" onClick={() => router.push('/login')}>
+            <Button
+              variant="link"
+              className="p-0 h-auto font-normal"
+              onClick={() => router.push("/login")}
+            >
               Login
             </Button>
           </CardDescription>
@@ -65,7 +69,7 @@ export default function Login() {
         <CardContent>
           <form>
             <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
+              <div className="grid gap-2">
                 <Label htmlFor="email">Full Name</Label>
                 <Input
                   id="name"

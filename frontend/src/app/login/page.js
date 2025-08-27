@@ -41,8 +41,8 @@ export default function Login() {
     } catch (error) {
       console.log(error);
       toast("Something went wrong", { description: error.message });
-    }finally{
-        setLoading(false); 
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,7 +55,11 @@ export default function Login() {
           </CardTitle>
           <CardDescription>
             Don't have an account?{" "}
-            <Button variant="link" className="p-0 h-auto font-normal" onClick={() => router.push('/signup')}>
+            <Button
+              variant="link"
+              className="p-0 h-auto font-normal"
+              onClick={() => router.push("/signup")}
+            >
               Sign Up
             </Button>
           </CardDescription>
