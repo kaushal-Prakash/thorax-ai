@@ -162,7 +162,7 @@ const isAuthenticated = async (req, res) => {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-    res.status(200).json({ user: req.user });
+    res.status(200).json({ message: "Authorized" });
   } catch (error) {
     console.error("Auth check error:", error);
     res.status(500).json({ message: "Internal Server Error" });
