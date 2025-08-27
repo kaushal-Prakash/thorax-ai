@@ -11,8 +11,9 @@ app.use(e.json());
 app.use(cookieParser());
 app.use(cors({
   origin: "http://localhost:3000",
-  credentials: true, // Allow cookies to be sent
+  credentials: true,
 }));
+
 
 //routes
 app.use("/auth",authRoutes);
@@ -20,4 +21,7 @@ app.use("/auth",authRoutes);
 //connect to MongoDB
 connectDB();
 
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
