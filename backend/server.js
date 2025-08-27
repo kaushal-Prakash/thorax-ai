@@ -17,6 +17,7 @@ app.use(cors({
 
 //routes
 app.use("/auth",authRoutes);
+app.use("/otp", (await import("./routes/otpRoutes.js")).default);
 
 //connect to MongoDB
 connectDB();

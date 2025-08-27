@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import dotenv from "dotenv";
+import Otp from "../models/Otp.js";
 
 dotenv.config();
 const SECRET = process.env.JWT_SECRET;
@@ -129,29 +130,35 @@ const changeName = async (req, res) => {
 };
 
 // CHANGE PASSWORD
-const changePassword = async (req, res) => {
+const resetPassword = async (req, res) => {
   try {
-    const { currentPassword, newPassword } = req.body;
-    const userId = req.user?._id;
+    const { email, newPassword } = req.body;
 
-    if (!currentPassword || !newPassword) {
-      return res.status(400).json({ message: "All fields are required" });
+    if (!email || !newPassword) {
+      return res
+        .status(400)
+        .json({ message: "Email and new password are required" });
     }
 
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    const isMatch = await bcrypt.compare(currentPassword, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Incorrect current password" });
+    // Ensure user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    user.password = await bcrypt.hash(newPassword, 10);
+    // (Optional but more secure) - check if OTP still exists for this email
+    const otpRecord = await Otp.findOne({ email });
+    if (otpRecord) {
+      return res.status(400).json({ message: "OTP not verified yet" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
     await user.save();
 
-    res.status(200).json({ message: "Password changed successfully" });
+    res.status(200).json({ message: "Password reset successfully" });
   } catch (error) {
-    console.error("Change password error:", error);
+    console.error("Reset password error:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -184,7 +191,7 @@ export {
   login,
   signout,
   changeName,
-  changePassword,
+  resetPassword,
   isAuthenticated,
   getUser,
 };
