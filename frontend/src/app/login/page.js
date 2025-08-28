@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ForgotPasswordDialog } from "@/components/ForgotPasswordDialog";
 import { OTPDialog } from "@/components/OTPDialog";
+import { FaGoogle } from "react-icons/fa";
 
 export default function Login() {
   const router = useRouter();
@@ -159,8 +160,8 @@ export default function Login() {
             >
               {loading ? "Logging in..." : "Login"}
             </Button>
-            <Button variant="outline" className="w-full">
-              Login with Google
+            <Button variant="outline" className="w-full" onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`}>
+              <FaGoogle/> Login with Google
             </Button>
           </CardFooter>
         </Card>
