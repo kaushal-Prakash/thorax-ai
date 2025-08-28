@@ -1,8 +1,8 @@
+import "dotenv/config";
 import e from "express";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 import cors from "cors";
-import 'dotenv/config';
 import connectDB from "./services/mongo.js";
 
 const app = e();

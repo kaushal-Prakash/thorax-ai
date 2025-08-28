@@ -1,8 +1,6 @@
 import Otp from "../models/Otp.js";
 import mailTransporter from "../services/nodemailer.js";
 import dotenv from "dotenv";
-import bcrypt from "bcryptjs";
-dotenv.config();
 
 const createOtp = async (req, res) => {
   const { email } = req.body;  

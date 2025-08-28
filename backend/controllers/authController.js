@@ -1,10 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import dotenv from "dotenv";
 import Otp from "../models/Otp.js";
 
-dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
 // Helper to create JWT
@@ -54,6 +52,9 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!SECRET) {
+  throw new Error("JWT_SECRET is missing from environment variables");
+}
 
     if (!email || !password) {
       return res.status(400).json({ message: "Email and password required" });
