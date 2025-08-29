@@ -11,19 +11,17 @@ const Footer = () => {
       <Card className="rounded-none shadow-none border-t bg-background/70 backdrop-blur-md">
         <CardContent className="py-12 px-6 md:px-16">
           {/* Top Section */}
-          <div className="grid gap-10 md:grid-cols-2 items-start">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             {/* Branding */}
-            <div>
+            <div className="text-center md:text-left">
               <h2 className="text-2xl font-bold tracking-tight">Thorax AI</h2>
-              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                Thorax AI leverages advanced AI-powered analysis to solve
-                critical real-world challenges, empowering innovation and
-                progress.
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed max-w-md">
+                Breathing Life into Intelligence
               </p>
             </div>
 
-            {/* Navigation Links */}
-            <div className="flex flex-col md:items-end gap-3 text-sm font-medium">
+            {/* Navigation Links in a row */}
+            <div className="flex gap-6 text-sm font-medium">
               <a href="/about" className="hover:text-primary transition-colors">
                 About
               </a>
