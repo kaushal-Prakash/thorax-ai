@@ -3,7 +3,6 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input"; // newsletter input
 import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
@@ -12,7 +11,7 @@ const Footer = () => {
       <Card className="rounded-none shadow-none border-t bg-background/70 backdrop-blur-md">
         <CardContent className="py-12 px-6 md:px-16">
           {/* Top Section */}
-          <div className="grid gap-10 md:grid-cols-3 items-start">
+          <div className="grid gap-10 md:grid-cols-2 items-start">
             {/* Branding */}
             <div>
               <h2 className="text-2xl font-bold tracking-tight">Thorax AI</h2>
@@ -24,7 +23,7 @@ const Footer = () => {
             </div>
 
             {/* Navigation Links */}
-            <div className="flex flex-col gap-3 text-sm font-medium">
+            <div className="flex flex-col md:items-end gap-3 text-sm font-medium">
               <a href="/about" className="hover:text-primary transition-colors">
                 About
               </a>
@@ -34,21 +33,6 @@ const Footer = () => {
               <a href="/blog" className="hover:text-primary transition-colors">
                 Blog
               </a>
-            </div>
-
-            {/* Newsletter Signup */}
-            <div>
-              <p className="text-sm font-medium mb-2">Subscribe to our updates</p>
-              <form className="flex gap-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="text-sm"
-                />
-                <Button type="submit" className="shrink-0">
-                  Subscribe
-                </Button>
-              </form>
             </div>
           </div>
 
