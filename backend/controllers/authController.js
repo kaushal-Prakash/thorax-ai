@@ -53,8 +53,8 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!SECRET) {
-  throw new Error("JWT_SECRET is missing from environment variables");
-}
+      throw new Error("JWT_SECRET is missing from environment variables");
+    }
 
     if (!email || !password) {
       return res.status(400).json({ message: "Email and password required" });
@@ -170,9 +170,10 @@ const isAuthenticated = async (req, res) => {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-    res.status(200).json({ message: "Authorized" });
+    res.status(200).json({ message: "Authorized", user: req.user });
   } catch (error) {
     console.error("Auth check error:", error);
+    console.log(req.user);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
