@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import React from "react";
+import { motion } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Bot,
@@ -9,198 +10,332 @@ import {
   Lock,
   BarChart3,
   Code2,
-  Database,
   Cpu,
+  Database,
   Terminal,
   GitBranch,
-  Sun,
-  Moon,
+  Brain,
+  Server,
+  Shield,
+  Palette,
+  CpuIcon,
 } from "lucide-react";
 
 export default function AboutPage() {
-  // const [theme, setTheme] = useState("light");
+  // Animation variants
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  };
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("theme")) {
-  //     setTheme(localStorage.getItem("theme"));
-  //     document.documentElement.classList.toggle(
-  //       "dark",
-  //       localStorage.getItem("theme") === "dark"
-  //     );
-  //   }
-  // }, []);
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
 
-  // const toggleTheme = () => {
-  //   const newTheme = theme === "light" ? "dark" : "light";
-  //   setTheme(newTheme);
-  //   localStorage.setItem("theme", newTheme);
-  //   document.documentElement.classList.toggle("dark", newTheme === "dark");
-  // };
+  // Features data
+  const features = [
+    {
+      icon: <Brain className="w-6 h-6" />,
+      title: "AI-driven insights",
+      description: "Harnesses advanced ML models for decision making"
+    },
+    {
+      icon: <Zap className="w-6 h-6" />,
+      title: "FastAPI backend",
+      description: "High-performance, asynchronous, and production-ready API layer"
+    },
+    {
+      icon: <Globe className="w-6 h-6" />,
+      title: "MERN stack frontend",
+      description: "Responsive, real-time, and user-friendly web interface"
+    },
+    {
+      icon: <Shield className="w-6 h-6" />,
+      title: "Authentication & RBAC",
+      description: "Role-based access for secure usage"
+    },
+    {
+      icon: <BarChart3 className="w-6 h-6" />,
+      title: "Data visualization",
+      description: "Interactive charts and reports for insights"
+    },
+    {
+      icon: <Server className="w-6 h-6" />,
+      title: "Scalable architecture",
+      description: "Designed to grow with your needs"
+    }
+  ];
+
+  // Tech stack data
+  const techStack = [
+    {
+      category: "Frontend",
+      icon: <Code2 className="w-5 h-5" />,
+      items: ["Next.js", "Tailwind CSS", "React", "TypeScript"]
+    },
+    {
+      category: "Backend",
+      icon: <CpuIcon className="w-5 h-5" />,
+      items: ["FastAPI", "Python", "Node.js", "RESTful APIs"]
+    },
+    {
+      category: "Database",
+      icon: <Database className="w-5 h-5" />,
+      items: ["MongoDB", "Mongoose ORM", "NoSQL", "Data Modeling"]
+    }
+  ];
+
+  // System requirements
+  const systemRequirements = {
+    hardware: [
+      "Processor: Intel i3 or higher",
+      "Memory: 8 GB RAM minimum",
+      "Storage: 20 GB free disk space",
+      "GPU (optional, for AI acceleration)"
+    ],
+    software: [
+      "Node.js (v18 or later)",
+      "Python (3.10 or later)",
+      "MongoDB (v6 or later)",
+      "Modern web browser"
+    ]
+  };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12 space-y-12 dark:bg-gray-950 dark:text-gray-100 min-h-screen">
-      {/* Theme Toggle
-      <div className="flex justify-end">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={toggleTheme}
-          className="rounded-full"
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
+        {/* Header Section */}
+        <motion.div 
+          className="text-center space-y-6 mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
         >
-          {theme === "light" ? (
-            <Moon className="w-5 h-5" />
-          ) : (
-            <Sun className="w-5 h-5" />
-          )}
-        </Button>
-      </div> */}
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+            <Bot className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
+            Thorax AI
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            An intelligent system designed to leverage <span className="font-semibold text-primary">AI-powered analysis</span> for solving critical real-world challenges. 
+            Built with a modern <span className="font-semibold text-primary">MERN stack frontend</span> and a <span className="font-semibold text-primary">FastAPI backend</span>, 
+            Thorax AI is scalable, modular, and production-ready.
+          </p>
+        </motion.div>
 
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">⚡ Thorax AI</h1>
-        <p className="text-lg text-muted-foreground dark:text-gray-300">
-          Thorax AI is an intelligent system designed to leverage{" "}
-          <b>AI-powered analysis</b> for solving critical real-world challenges.
-          Built with a modern <b>MERN stack frontend</b> and a{" "}
-          <b>FastAPI backend</b>, Thorax AI is scalable, modular, and
-          production-ready.
-        </p>
-      </div>
+        {/* Features Section */}
+        <motion.section 
+          className="mb-16"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+              Key Features
+            </span>
+          </h2>
+          
+          <motion.div 
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                variants={fadeIn}
+                whileHover={{ y: -5 }}
+              >
+                <Card className="h-full shadow-md hover:shadow-lg transition-shadow border-0 bg-background/70 backdrop-blur-sm">
+                  <CardContent className="p-6">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mb-4 text-primary">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.section>
 
-      {/* Features */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-6">🌟 Features</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card className="shadow-md dark:bg-gray-900">
-            <CardContent className="flex items-center gap-4 p-6">
-              <Bot className="w-6 h-6 text-primary" />
-              <span>AI-driven insights</span>
-            </CardContent>
-          </Card>
-          <Card className="shadow-md dark:bg-gray-900">
-            <CardContent className="flex items-center gap-4 p-6">
-              <Zap className="w-6 h-6 text-primary" />
-              <span>FastAPI backend</span>
-            </CardContent>
-          </Card>
-          <Card className="shadow-md dark:bg-gray-900">
-            <CardContent className="flex items-center gap-4 p-6">
-              <Globe className="w-6 h-6 text-primary" />
-              <span>MERN stack frontend</span>
-            </CardContent>
-          </Card>
-          <Card className="shadow-md dark:bg-gray-900">
-            <CardContent className="flex items-center gap-4 p-6">
-              <Lock className="w-6 h-6 text-primary" />
-              <span>Authentication & RBAC</span>
-            </CardContent>
-          </Card>
-          <Card className="shadow-md dark:bg-gray-900">
-            <CardContent className="flex items-center gap-4 p-6">
-              <BarChart3 className="w-6 h-6 text-primary" />
-              <span>Data visualization</span>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+        {/* Tech Stack Section */}
+        <motion.section 
+          className="mb-16"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+              Technology Stack
+            </span>
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {techStack.map((tech, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="h-full shadow-md border-0 bg-background/70 backdrop-blur-sm">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2">
+                      {tech.icon}
+                      {tech.category}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {tech.items.map((item, i) => (
+                        <li key={i} className="flex items-center">
+                          <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                          <span className="text-muted-foreground">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
 
-      {/* Tech Stack */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-6">🛠️ Tech Stack</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="dark:bg-gray-900">
-            <CardContent className="p-6 space-y-3">
-              <h3 className="font-semibold flex items-center gap-2">
-                <Code2 className="w-5 h-5" /> Frontend
-              </h3>
-              <ul className="list-disc list-inside text-muted-foreground dark:text-gray-300">
-                <li>Next.js</li>
-                <li>Tailwind CSS / SCSS</li>
-              </ul>
-            </CardContent>
-          </Card>
+        {/* System Requirements Section */}
+        <motion.section 
+          className="mb-16"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+              System Requirements
+            </span>
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <Card className="h-full shadow-md border-0 bg-background/70 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Cpu className="w-5 h-5" />
+                    Hardware
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {systemRequirements.hardware.map((item, i) => (
+                      <li key={i} className="flex items-center">
+                        <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <Card className="h-full shadow-md border-0 bg-background/70 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Palette className="w-5 h-5" />
+                    Software
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {systemRequirements.software.map((item, i) => (
+                      <li key={i} className="flex items-center">
+                        <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </motion.section>
 
-          <Card className="dark:bg-gray-900">
-            <CardContent className="p-6 space-y-3">
-              <h3 className="font-semibold flex items-center gap-2">
-                <Cpu className="w-5 h-5" /> Backend
-              </h3>
-              <ul className="list-disc list-inside text-muted-foreground dark:text-gray-300">
-                <li>FastAPI</li>
-                <li>Python (ML/AI models)</li>
-                <li>Node.js</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="dark:bg-gray-900">
-            <CardContent className="p-6 space-y-3">
-              <h3 className="font-semibold flex items-center gap-2">
-                <Database className="w-5 h-5" /> Database
-              </h3>
-              <ul className="list-disc list-inside text-muted-foreground dark:text-gray-300">
-                <li>MongoDB (NoSQL)</li>
-                <li>Mongoose ORM</li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* System Requirements */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-6">⚙️ System Requirements</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card className="dark:bg-gray-900">
-            <CardContent className="p-6 space-y-3">
-              <h3 className="font-semibold">Hardware</h3>
-              <ul className="list-disc list-inside text-muted-foreground dark:text-gray-300">
-                <li>Processor: Intel i3 or higher</li>
-                <li>Memory: 8 GB RAM minimum</li>
-                <li>Storage: 20 GB free disk space</li>
-                <li>GPU (optional, for AI acceleration)</li>
-              </ul>
-            </CardContent>
-          </Card>
-          <Card className="dark:bg-gray-900">
-            <CardContent className="p-6 space-y-3">
-              <h3 className="font-semibold">Software</h3>
-              <ul className="list-disc list-inside text-muted-foreground dark:text-gray-300">
-                <li>Node.js (v18 or later)</li>
-                <li>Python (3.10 or later)</li>
-                <li>MongoDB (v6 or later)</li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Getting Started */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-6">🚀 Getting Started</h2>
-        <Card className="dark:bg-gray-900">
-          <CardContent className="p-6 space-y-4">
-            <h3 className="font-semibold flex items-center gap-2">
-              <Terminal className="w-5 h-5" /> Clone the Repository
-            </h3>
-            <pre className="bg-muted dark:bg-gray-800 p-4 rounded-lg text-sm overflow-x-auto">
-              <code>
+        {/* Getting Started Section */}
+        <motion.section 
+          className="mb-16"
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={fadeIn}
+        >
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+              Get Started
+            </span>
+          </h2>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Card className="shadow-md border-0 bg-background/70 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Terminal className="w-5 h-5" />
+                  Clone the Repository
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-muted dark:bg-gray-800 p-4 rounded-lg">
+                  <pre className="text-sm overflow-x-auto">
+                    <code>
 {`git clone https://github.com/kaushal-Prakash/thorax-ai
 cd thorax-ai`}
-              </code>
-            </pre>
-            <Button className="mt-2" asChild>
-              <a
-                href="https://github.com/kaushal-Prakash/thorax-ai"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GitBranch className="w-4 h-4 mr-2" /> View on GitHub
-              </a>
-            </Button>
-          </CardContent>
-        </Card>
-      </section>
+                    </code>
+                  </pre>
+                </div>
+                <Button asChild className="gap-2">
+                  <a
+                    href="https://github.com/kaushal-Prakash/thorax-ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <GitBranch className="w-4 h-4" />
+                    View on GitHub
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.section>
+      </div>
     </div>
   );
 }
