@@ -1,11 +1,10 @@
-// app/not-found.js
 "use client";
-
 import React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 function NotFound() {
+  const router = useRouter();
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white text-gray-800 px-4">
       <motion.div
@@ -18,12 +17,13 @@ function NotFound() {
         <p className="text-lg text-gray-600 mb-6">
           Oops! The page you’re looking for doesn’t exist.
         </p>
-        <Link
+        <button
+          onClick={() => router.back()}
           href="/"
           className="inline-block px-6 py-2 text-white bg-gray-800 rounded-2xl shadow-md hover:bg-gray-700 transition-colors"
         >
           Go Home
-        </Link>
+        </button>
       </motion.div>
     </div>
   );

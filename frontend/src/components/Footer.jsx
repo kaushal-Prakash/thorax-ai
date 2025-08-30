@@ -1,4 +1,3 @@
-// components/Footer.jsx
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -7,8 +6,8 @@ import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="w-full mt-16">
-      <Card className="rounded-none shadow-none border-t bg-background/70 backdrop-blur-md">
+    <footer className="w-full">
+      <Card className="rounded-none shadow-none border-t bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 backdrop-blur-md">
         <CardContent className="py-12 px-6 md:px-16">
           {/* Top Section */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
@@ -22,20 +21,29 @@ const Footer = () => {
 
             {/* Navigation Links in a row */}
             <div className="flex gap-6 text-sm font-medium">
-              <a href="/about" className="hover:text-primary transition-colors">
+              <a
+                href="/about"
+                className="hover:text-primary transition-all hover:scale-105 text-foreground/80"
+              >
                 About
               </a>
-              <a href="/contact" className="hover:text-primary transition-colors">
+              <a
+                href="/contact"
+                className="hover:text-primary transition-all hover:scale-105 text-foreground/80"
+              >
                 Contact
               </a>
-              <a href="/blog" className="hover:text-primary transition-colors">
+              <a
+                href="/blog"
+                className="hover:text-primary transition-all hover:scale-105 text-foreground/80"
+              >
                 Blog
               </a>
             </div>
           </div>
 
           {/* Separator */}
-          <Separator className="my-8" />
+          <Separator className="my-8 bg-border" />
 
           {/* Bottom Section */}
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground gap-4">
@@ -47,10 +55,10 @@ const Footer = () => {
                 variant="outline"
                 size="icon"
                 asChild
-                className="rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="rounded-full hover:bg-primary hover:text-primary-foreground transition-colors border-border bg-background/50"
               >
                 <a
-                  href="https://github.com/"
+                  href="https://github.com/kaushal-Prakash/thorax-ai"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
@@ -62,7 +70,7 @@ const Footer = () => {
                 variant="outline"
                 size="icon"
                 asChild
-                className="rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="rounded-full hover:bg-primary hover:text-primary-foreground transition-colors border-border bg-background/50"
               >
                 <a
                   href="https://twitter.com/"
@@ -77,7 +85,7 @@ const Footer = () => {
                 variant="outline"
                 size="icon"
                 asChild
-                className="rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="rounded-full hover:bg-primary hover:text-primary-foreground transition-colors border-border bg-background/50"
               >
                 <a
                   href="https://linkedin.com/"
@@ -92,10 +100,10 @@ const Footer = () => {
 
             {/* Policies */}
             <div className="flex gap-5">
-              <a href="/privacy" className="hover:underline">
+              <a href="/privacy" className="hover:underline text-foreground/80">
                 Privacy Policy
               </a>
-              <a href="/terms" className="hover:underline">
+              <a href="/terms" className="hover:underline text-foreground/80">
                 Terms of Service
               </a>
             </div>
