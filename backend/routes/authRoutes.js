@@ -3,6 +3,7 @@ import { changeName, getUser, isAuthenticated, login, resetPassword, signout, si
 import { createOtp, verifyOtp } from '../controllers/otpController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import passport from "../services/oauth.js";
+import jwt from "jsonwebtoken";
 const router = e.Router();
 
 router.post("/signup", signup);
@@ -17,7 +18,6 @@ router.get("/get-user",authMiddleware, getUser);
 
 //oauth routes
 router.get("/google",passport.authenticate("google",{scope:["profile","email"]}));
-import jwt from "jsonwebtoken";
 router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/login", session: false }),
