@@ -1,8 +1,7 @@
-from fastapi import FastAPI  
+# main.py
+from fastapi import FastAPI
+from routes import user 
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "AI Backend is running"}
-
+app.include_router(user.router)  
