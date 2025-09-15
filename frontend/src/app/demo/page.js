@@ -10,7 +10,8 @@ import {
   ChevronRight,
   ExternalLink,
 } from "lucide-react";
-import Link from "next/link"; // Fixed import path
+import { motion } from "framer-motion";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
 const Demo = () => {
@@ -69,7 +70,12 @@ const Demo = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <header className="text-center mb-12">
+        <motion.header
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <h1 className="text-4xl font-bold text-slate-800 mb-3">
             Website Demo
           </h1>
@@ -77,10 +83,15 @@ const Demo = () => {
             Watch a showcase of our platform's key features and user interface
             in action.
           </p>
-        </header>
+        </motion.header>
 
         {/* Video Player */}
-        <div className="bg-white rounded-xl shadow-xl overflow-hidden mb-10">
+        <motion.div
+          className="bg-white rounded-xl shadow-xl overflow-hidden mb-10"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="relative">
             <video
               ref={videoRef}
@@ -159,7 +170,13 @@ const Demo = () => {
           </div>
 
           {/* Video info */}
-          <div className="p-6">
+          <motion.div
+            className="p-6"
+            initial={{ opacity: 0, y: 30 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
             <h2 className="text-xl font-semibold text-slate-800 mb-2">
               Website Overview Demo
             </h2>
@@ -187,12 +204,32 @@ const Demo = () => {
                 UI/UX
               </Badge>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Features section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.2 },
+            },
+          }}
+        >
+          {/* Child 1 */}
+          <motion.div
+            className="bg-white p-6 rounded-xl shadow-sm border border-slate-100"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -215,9 +252,17 @@ const Demo = () => {
               Clean and intuitive interface designed for optimal user
               experience.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          {/* Child 2 */}
+          <motion.div
+            className="bg-white p-6 rounded-xl shadow-sm border border-slate-100"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -232,9 +277,6 @@ const Demo = () => {
               >
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
             </div>
             <h3 className="font-semibold text-slate-800 mb-2">
@@ -244,9 +286,17 @@ const Demo = () => {
               Comprehensive toolset that enhances productivity and workflow
               efficiency.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          {/* Child 3 */}
+          <motion.div
+            className="bg-white p-6 rounded-xl shadow-sm border border-slate-100"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -259,10 +309,8 @@ const Demo = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               </svg>
             </div>
             <h3 className="font-semibold text-slate-800 mb-2">User Focused</h3>
@@ -270,11 +318,17 @@ const Demo = () => {
               Designed with the user in mind, prioritizing simplicity and
               functionality.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Call to action */}
-        <div className="text-center bg-white rounded-xl shadow-sm p-8 border border-slate-100">
+        <motion.div
+          className="text-center bg-white rounded-xl shadow-sm p-8 border border-slate-100"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-2xl font-bold text-slate-800 mb-4">
             Ready to get started?
           </h2>
@@ -291,7 +345,7 @@ const Demo = () => {
               Get Started <ChevronRight size={18} className="ml-1" />
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
