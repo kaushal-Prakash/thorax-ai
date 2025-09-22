@@ -1,12 +1,15 @@
 from fastapi import FastAPI
+from routes import prediction_route 
 
-app = FastAPI()
+app = FastAPI(
+    title="ML Model API",
+    description="FastAPI service for predictions from model.pkl",
+    version="1.0.0"
+)
 
-# include routers
-# app.include_router(user.router)
+# Register router
+app.include_router(prediction_route.router, prefix="/api", tags=["Prediction"])
 
 @app.get("/")
-def root():
-    return {"message": "AI backend is running 🚀"}
-
-
+async def root():
+    return {"message": "Welcome to the ML Model API"}
