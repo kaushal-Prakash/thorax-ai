@@ -80,7 +80,7 @@ const Demo = () => {
             Website Demo
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Watch a showcase of our platform's key features and user interface
+            Watch a showcase of our platform&apos;s key features and user interface
             in action.
           </p>
         </motion.header>

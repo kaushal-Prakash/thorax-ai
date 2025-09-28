@@ -3,6 +3,7 @@ import e from "express";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 import cors from "cors";
+import aiRoutes from "./routes/aiRoutes.js";
 import connectDB from "./services/mongo.js";
 
 const app = e();
@@ -17,6 +18,7 @@ app.use(cors({
 //routes
 app.use("/auth",authRoutes);
 app.use("/otp", (await import("./routes/otpRoutes.js")).default);
+app.use("/ai", aiRoutes);
 
 //connect to MongoDB
 connectDB();

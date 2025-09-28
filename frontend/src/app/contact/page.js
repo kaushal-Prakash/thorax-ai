@@ -74,7 +74,7 @@ function Contact() {
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Get in touch with us through any of the following channels. 
-            We're here to help and answer any questions you might have.
+            We&apos;re here to help and answer any questions you might have.
           </p>
         </motion.div>
 
@@ -152,7 +152,7 @@ function Contact() {
                   Quick Contact
                 </CardTitle>
                 <CardDescription>
-                  We're always happy to connect with you
+                  We&apos;re always happy to connect with you
                 </CardDescription>
               </CardHeader>
               <CardContent>
