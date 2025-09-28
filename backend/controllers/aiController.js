@@ -2,52 +2,84 @@ import mongoose from "mongoose";
 import fs from "fs";
 import path from "path";
 import Result from "../models/Result.js";
+import aiResponse from "../utils/gemini.js";
 
 async function analyzeXray(base64Image) {
-  // Replace with your real AI API call
-  return {
-    case: "covid", // "covid" | "normal" | "viral"
-    confidence: Math.random(), // Example confidence
-  };
-}
-
-const predict = async (req, res) => {
   try {
-    const { userId } = req.params;
-    const file = req.file;
+    // Call AI
+    let aiResultRaw = await aiResponse({
+      task: `
+You are an AI medical image analyzer.
 
-    if (!file) return res.status(400).json({ error: "No file uploaded" });
+Input: A chest X-ray image in base64: ${base64Image}.
 
-    // Convert file to Base64
-    const filePath = path.join(file.destination, file.filename);
-    const fileData = fs.readFileSync(filePath);
-    const base64Image = fileData.toString("base64");
+Task: Classify the image as "covid", "normal", or "viral".
 
-    // Call AI Analyzer
-    const aiResult = await analyzeXray(base64Image);
-
-    // Optional: store file URL (can be uploaded to cloud storage)
-    const imageUrl = `/uploads/${file.filename}`;
-
-    // Prepare MongoDB document
-    const resultDoc = new Result({
-      userId: new mongoose.Types.ObjectId(userId),
-      case: aiResult.case,
-      confidence: aiResult.confidence,
-      date: new Date(),
-      imageUrl,
+Output ONLY valid JSON in this format:
+{
+  "case": "<covid | normal | viral>",
+  "confidence": <number between 0 and 1>,
+  "date": "<ISO date string>"
+}
+Do not include any extra text, explanation, or markdown.
+`,
     });
 
-    await resultDoc.save();
+    // Remove Markdown code blocks like ```json ... ```
+    aiResultRaw = aiResultRaw.replace(/```json|```/g, "").trim();
 
-    // Delete local file after processing
-    fs.unlinkSync(filePath);
+    // Parse JSON
+    const aiResult = JSON.parse(aiResultRaw);
 
-    res.status(200).json(resultDoc);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return aiResult;
+  } catch (error) {
+    console.error("AI analysis error:", error);
+    throw new Error("AI analysis failed");
   }
+}
+
+
+const predict = async (req, res) => {
+  const { userId } = req.params;
+  const file = req.file;
+
+  if (!file) return res.status(400).json({ error: "No file uploaded" });
+
+  // Use file.path instead of file.destination + file.filename
+  const filePath = file.path; 
+  const fileData = fs.readFileSync(filePath);
+  const base64Image = fileData.toString("base64");
+
+  let aiResult;
+  try {
+    aiResult = await analyzeXray(base64Image);
+  } catch (err) {
+    // delete file even if AI fails
+    try { fs.unlinkSync(filePath); } catch(_) {}
+    return res.status(500).json({ error: "AI analysis failed" });
+  }
+
+  // Save result in DB
+  const resultDoc = new Result({
+    userId: new mongoose.Types.ObjectId(userId),
+    case: aiResult.case,
+    confidence: aiResult.confidence,
+    date: new Date(aiResult.date),
+    imageUrl: `/uploads/${file.filename}`,
+  });
+
+  await resultDoc.save();
+
+  // Delete local file after saving
+  try {
+    fs.unlinkSync(filePath);
+    console.log("File deleted:", filePath);
+  } catch (err) {
+    console.warn("Failed to delete file:", filePath, err.message);
+  }
+
+  res.status(200).json(resultDoc);
 };
+
 
 export { predict };

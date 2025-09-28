@@ -8,7 +8,7 @@ const router = express.Router();
 // Multer storage config: use date + timestamp as filename
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, "./uploads");
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
