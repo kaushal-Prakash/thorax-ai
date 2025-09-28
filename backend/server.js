@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.js";
 import cors from "cors";
 import aiRoutes from "./routes/aiRoutes.js";
 import connectDB from "./services/mongo.js";
+import resultRoutes from "./routes/resultRoutes.js";
 
 const app = e();
 
@@ -19,6 +20,7 @@ app.use(cors({
 app.use("/auth",authRoutes);
 app.use("/otp", (await import("./routes/otpRoutes.js")).default);
 app.use("/ai", aiRoutes);
+app.use("/results", resultRoutes);
 
 //connect to MongoDB
 connectDB();
