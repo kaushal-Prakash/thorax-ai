@@ -25,6 +25,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -33,14 +34,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const mockResults = [
-  { date: '2025-08-20', case: 'covid', confidence: 0.92 },
-  { date: '2025-08-15', case: 'normal', confidence: 0.87 },
-  { date: '2025-08-10', case: 'viral', confidence: 0.78 },
-  { date: '2025-08-05', case: 'covid', confidence: 0.95 },
-  { date: '2025-08-01', case: 'normal', confidence: 0.91 },
-];
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -55,11 +48,15 @@ function Dashboard() {
         const userData = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/get-user`, {
           withCredentials: true,
         });
+        const userResults = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/results/get-user-results`, {
+          withCredentials: true,
+        });
         console.log("Fetched user data:", userData.data.user);
         setUser(userData.data.user);
-        setResults(mockResults);
+        setResults(userResults.data || []); // Fixed: added .data and default to empty array
       } catch (error) {
         console.error("Failed to fetch user data:", error);
+        setResults([]); // Ensure results is always an array
       } finally {
         setIsLoading(false);
       }
@@ -68,25 +65,33 @@ function Dashboard() {
     fetchUserData();
   }, []);
 
-  // Prepare data for the chart
+  // Prepare data for the chart - fixed to handle empty results
   const chartData = {
-    labels: results.map(result => 
-      new Date(result.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-    ),
+    labels: results.length > 0 
+      ? results.map(result => 
+          new Date(result.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+        )
+      : [],
     datasets: [
       {
         label: 'COVID-19',
-        data: results.map(result => result.case === 'covid' ? result.confidence * 100 : 0),
+        data: results.length > 0 
+          ? results.map(result => result.case === 'covid' ? result.confidence * 100 : 0)
+          : [],
         backgroundColor: 'rgba(239, 68, 68, 0.8)',
       },
       {
         label: 'Viral Pneumonia',
-        data: results.map(result => result.case === 'viral' ? result.confidence * 100 : 0),
+        data: results.length > 0 
+          ? results.map(result => result.case === 'viral' ? result.confidence * 100 : 0)
+          : [],
         backgroundColor: 'rgba(234, 179, 8, 0.8)',
       },
       {
         label: 'Normal',
-        data: results.map(result => result.case === 'normal' ? result.confidence * 100 : 0),
+        data: results.length > 0 
+          ? results.map(result => result.case === 'normal' ? result.confidence * 100 : 0)
+          : [],
         backgroundColor: 'rgba(34, 197, 94, 0.8)',
       },
     ],
@@ -115,7 +120,7 @@ function Dashboard() {
     },
   };
 
-  // Calculate statistics
+  // Calculate statistics - these will work with empty array
   const totalScans = results.length;
   const covidScans = results.filter(r => r.case === 'covid').length;
   const normalScans = results.filter(r => r.case === 'normal').length;
@@ -175,7 +180,7 @@ function Dashboard() {
                   <div>
                     <p className="text-sm font-medium">Member since</p>
                     <p className="text-sm text-gray-600">
-                      {new Date(user?.createdAt).toLocaleDateString()}
+                      {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
                     </p>
                   </div>
                 </div>
@@ -229,43 +234,51 @@ function Dashboard() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">COVID Detections</span>
-                  <span className="text-sm text-gray-600">
-                    {totalScans > 0 ? Math.round((covidScans / totalScans) * 100) : 0}%
-                  </span>
-                </div>
-                <Progress 
-                  value={totalScans > 0 ? (covidScans / totalScans) * 100 : 0} 
-                  className="h-2"
-                  indicatorClassName="bg-red-500"
-                />
+              {totalScans > 0 ? (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">COVID Detections</span>
+                    <span className="text-sm text-gray-600">
+                      {Math.round((covidScans / totalScans) * 100)}%
+                    </span>
+                  </div>
+                  <Progress 
+                    value={(covidScans / totalScans) * 100} 
+                    className="h-2"
+                    indicatorClassName="bg-red-500"
+                  />
 
-                <div className="flex items-center justify-between mt-4">
-                  <span className="text-sm font-medium">Viral Pneumonia</span>
-                  <span className="text-sm text-gray-600">
-                    {totalScans > 0 ? Math.round((viralScans / totalScans) * 100) : 0}%
-                  </span>
-                </div>
-                <Progress 
-                  value={totalScans > 0 ? (viralScans / totalScans) * 100 : 0} 
-                  className="h-2"
-                  indicatorClassName="bg-yellow-500"
-                />
+                  <div className="flex items-center justify-between mt-4">
+                    <span className="text-sm font-medium">Viral Pneumonia</span>
+                    <span className="text-sm text-gray-600">
+                      {Math.round((viralScans / totalScans) * 100)}%
+                    </span>
+                  </div>
+                  <Progress 
+                    value={(viralScans / totalScans) * 100} 
+                    className="h-2"
+                    indicatorClassName="bg-yellow-500"
+                  />
 
-                <div className="flex items-center justify-between mt-4">
-                  <span className="text-sm font-medium">Normal Results</span>
-                  <span className="text-sm text-gray-600">
-                    {totalScans > 0 ? Math.round((normalScans / totalScans) * 100) : 0}%
-                  </span>
+                  <div className="flex items-center justify-between mt-4">
+                    <span className="text-sm font-medium">Normal Results</span>
+                    <span className="text-sm text-gray-600">
+                      {Math.round((normalScans / totalScans) * 100)}%
+                    </span>
+                  </div>
+                  <Progress 
+                    value={(normalScans / totalScans) * 100} 
+                    className="h-2"
+                    indicatorClassName="bg-green-500"
+                  />
                 </div>
-                <Progress 
-                  value={totalScans > 0 ? (normalScans / totalScans) * 100 : 0} 
-                  className="h-2"
-                  indicatorClassName="bg-green-500"
-                />
-              </div>
+              ) : (
+                <div className="text-center py-8">
+                  <Activity className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500">No scan data available yet</p>
+                  <p className="text-sm text-gray-400 mt-1">Start by analyzing your first X-ray image</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -283,10 +296,12 @@ function Dashboard() {
                   Your recent COVID-19 detection scan results
                 </CardDescription>
               </div>
-              <Button variant="outline" size="sm">
-                <Download className="h-4 w-4 mr-2" />
-                Export Data
-              </Button>
+              {results.length > 0 && (
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 mr-2" />
+                  Export Data
+                </Button>
+              )}
             </div>
           </CardHeader>
           <CardContent>
@@ -334,7 +349,7 @@ function Dashboard() {
                 <BarChart3 className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                 <h3 className="font-medium text-gray-900 mb-1">No scan history yet</h3>
                 <p className="text-gray-500 mb-4">Start by analyzing your first X-ray image</p>
-                <Button>
+                <Button onClick={() => window.location.href = '/services'}>
                   <PlusCircle className="h-4 w-4 mr-2" />
                   New Analysis
                 </Button>

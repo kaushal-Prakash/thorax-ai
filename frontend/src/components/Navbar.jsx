@@ -48,8 +48,6 @@ const Navbar = () => {
           }
         );
 
-        console.log(response.data)
-
         if (response.status === 200) {
           const userData = response.data.user;
           setIsLoggedIn(true);
