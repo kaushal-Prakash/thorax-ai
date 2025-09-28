@@ -24,6 +24,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -51,16 +52,11 @@ function Dashboard() {
     const fetchUserData = async () => {
       try {
         // In a real app, you would fetch this from your API
-        const userData = {
-          _id: { $oid: "68aef843c1472c5a7d368e88" },
-          name: "Kauhal",
-          email: "test4@gmail.com",
-          isPremium: false,
-          subscriptionId: null,
-          createdAt: { $date: "2025-08-27T12:21:23.117Z" },
-          updatedAt: { $date: "2025-08-27T12:21:23.117Z" },
-        };
-        setUser(userData);
+        const userData = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/get-user`, {
+          withCredentials: true,
+        });
+        console.log("Fetched user data:", userData.data.user);
+        setUser(userData.data.user);
         setResults(mockResults);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
@@ -179,7 +175,7 @@ function Dashboard() {
                   <div>
                     <p className="text-sm font-medium">Member since</p>
                     <p className="text-sm text-gray-600">
-                      {new Date(user?.createdAt?.$date).toLocaleDateString()}
+                      {new Date(user?.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
