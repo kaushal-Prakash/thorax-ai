@@ -37,7 +37,7 @@ const TermsOfService = () => {
           <div>
             <h2 className="text-xl font-semibold mb-2">1. Acceptance of Terms</h2>
             <p>
-              By accessing or using Thorax AI's services, you agree to be bound by these Terms of Service and 
+              By accessing or using Thorax AI&apos;s services, you agree to be bound by these Terms of Service and 
               our Privacy Policy. If you do not agree to these terms, you may not use our services.
             </p>
           </div>
@@ -107,7 +107,7 @@ const TermsOfService = () => {
           <div>
             <h2 className="text-xl font-semibold mb-2">5. Medical Disclaimer</h2>
             <p className="bg-destructive/10 p-4 rounded-lg border border-destructive/20">
-              IMPORTANT: Thorax AI's services are intended to assist healthcare professionals and should 
+              IMPORTANT: Thorax AI&apos;s services are intended to assist healthcare professionals and should 
               not be used as a sole means of diagnosis. Our AI-generated reports are preliminary assessments 
               and must be reviewed and verified by a qualified medical professional. We do not provide medical 
               advice, diagnosis, or treatment. Always seek the advice of qualified health providers with 
@@ -118,7 +118,7 @@ const TermsOfService = () => {
           <div>
             <h2 className="text-xl font-semibold mb-2">6. Intellectual Property</h2>
             <p>
-              All content, features, and functionality of Thorax AI's service, including but not limited to 
+              All content, features, and functionality of Thorax AI&apos;s service, including but not limited to 
               our machine learning models, algorithms, software, and documentation, are the exclusive property 
               of Thorax AI and are protected by international copyright, trademark, and other intellectual 
               property laws.

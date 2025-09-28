@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  const publicRoutes = ["/login", "/signup", "/","about","/demo","/contact"];
+  const publicRoutes = ["/login", "/signup", "/","about","/demo","/contact","/terms"];
   const token = req.cookies.get("token")?.value;
 
   console.log("Middleware triggered for path:", req.nextUrl.pathname);
@@ -34,5 +34,6 @@ export const config = {
     "/about",
     "/services",
     "/contact",
+    "/terms"
   ],
 };

@@ -96,7 +96,7 @@ const UPIQRPayment = ({ amount, planName, isOpen, onClose, onPaymentSuccess }) =
                   Cancel
                 </Button>
                 <Button onClick={handlePaymentDone} className="flex-1">
-                  I've Paid
+                  I&apos;ve Paid
                 </Button>
               </div>
             </motion.div>
@@ -375,7 +375,7 @@ const PricingPage = () => {
             <div className="text-left">
               <h3 className="font-semibold mb-2">How does the payment process work?</h3>
               <p className="text-gray-600 text-sm">
-                After selecting a plan, you'll see a UPI QR code. Scan it with any UPI app to complete your payment, then upload a screenshot for verification.
+                After selecting a plan, you&apos;ll see a UPI QR code. Scan it with any UPI app to complete your payment, then upload a screenshot for verification.
               </p>
             </div>
             <div className="text-left">

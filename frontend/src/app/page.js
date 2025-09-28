@@ -482,7 +482,7 @@ export default function Home() {
                   ))}
                 </div>
                 <blockquote className="text-lg italic mb-6">
-                  "{testimonial.quote}"
+                  &quot;{testimonial.quote}&quot;
                 </blockquote>
                 <div>
                   <p className="font-semibold">{testimonial.author}</p>

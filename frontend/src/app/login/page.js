@@ -104,7 +104,7 @@ export default function Login() {
               Login to <Badge variant="outline">Thorax AI</Badge>
             </CardTitle>
             <CardDescription>
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Button
                 variant="link"
                 className="p-0 h-auto font-normal"
