@@ -51,9 +51,9 @@ function Dashboard() {
         const userResults = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/results/get-user-results`, {
           withCredentials: true,
         });
-        console.log("Fetched user data:", userData.data.user);
+        console.log(userResults.data);
         setUser(userData.data.user);
-        setResults(userResults.data || []); // Fixed: added .data and default to empty array
+        setResults(userResults.data);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
         setResults([]); // Ensure results is always an array

@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import { predict } from "../controllers/aiController.js";
 import path from "path";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post("/predict", upload.single("xray"), predict);
+router.post("/predict", authMiddleware, upload.single("xray"), predict);
 
 export default router;
+ 

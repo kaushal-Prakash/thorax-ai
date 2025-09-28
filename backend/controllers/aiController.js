@@ -38,9 +38,8 @@ Do not include any extra text, explanation, or markdown.
   }
 }
 
-
 const predict = async (req, res) => {
-  const { userId } = req.params;
+  const userId  = req.user?._id;
   const file = req.file;
 
   if (!file) return res.status(400).json({ error: "No file uploaded" });
