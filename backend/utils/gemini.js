@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 dotenv.config();
 
-const ai = new GoogleGenAI({apiKey : process.env.GEMINI_API_KEY});
+const ai = new GoogleGenAI({apiKey : process.env.GEMINI_KEY});
 
 export default async function aiResponse({task}) {
   const response = await ai.models.generateContent({
