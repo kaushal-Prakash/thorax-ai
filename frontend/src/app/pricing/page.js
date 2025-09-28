@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { X } from 'lucide-react';
 import { FaCheckCircle, FaArrowRight, FaEye, FaSync, FaChartLine, FaRocket } from 'react-icons/fa';
 
 // UPI QR Payment Component (simplified version)
