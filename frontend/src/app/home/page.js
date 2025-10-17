@@ -296,12 +296,12 @@ function Dashboard() {
                   Your recent COVID-19 detection scan results
                 </CardDescription>
               </div>
-              {results.length > 0 && (
+              {/* {results.length > 0 && (
                 <Button variant="outline" size="sm">
                   <Download className="h-4 w-4 mr-2" />
                   Export Data
                 </Button>
-              )}
+              )} */}
             </div>
           </CardHeader>
           <CardContent>
