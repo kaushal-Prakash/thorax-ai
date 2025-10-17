@@ -351,7 +351,7 @@ const CovidModel = () => {
                     </Button>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <h3 className="font-medium mb-2">Original X-Ray</h3>
                       <img
@@ -368,7 +368,7 @@ const CovidModel = () => {
                         className="rounded-md border w-full"
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="space-y-4">
                     <h3 className="font-medium text-lg">Analysis Results</h3>
