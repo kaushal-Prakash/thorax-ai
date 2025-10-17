@@ -198,7 +198,7 @@ function Dashboard() {
                 </div>
 
                 {!user?.isPremium && (
-                  <Button className="w-full mt-4">
+                  <Button className="w-full mt-4" onClick={() => window.location.href = '/pricing'}>
                     <Crown className="h-4 w-4 mr-2" />
                     Upgrade to Premium
                   </Button>
